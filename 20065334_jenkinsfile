@@ -40,7 +40,7 @@ pipeline {
                 }
           }
           steps {
-	     //	sh "curl -Is http://20065334-websvr.localdomain | head -n 1 | tr -d '\\r\\n' | awk '{print \$2}' > /tmp/web-test-result"
+	     sh "curl -Is http://20065334-websvr.localdomain | head -n 1 | tr -d '\\r\\n' | awk '{print \$2}' > /tmp/web-test-result"
                 echo "STG4: Production web server testing completed"
           }	 
           }
