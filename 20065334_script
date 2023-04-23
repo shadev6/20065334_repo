@@ -1,0 +1,11 @@
+#!/bin/bash
+apt-get update
+puppet resource package git ensure=present
+mkdir -p /tmp/20065334;
+puppet resource package apache2 ensure=present
+puppet resource service apache2 ensure=running
+puppet resource file /tmp/20065334/clone ensure=absent force=true
+puppet resource file /tmp/20065334/clone ensure=directory
+cd /tmp/20065334/clone
+git clone https://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@github.com/shadev6/20065334_repo.git
+cp -p /tmp/20065334/clone/20065334_repo/20065334_index.html /var/www/html
