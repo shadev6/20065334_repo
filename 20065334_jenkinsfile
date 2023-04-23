@@ -13,6 +13,17 @@ pipeline {
                 }
           }
           steps {
+  		 sh '''#!/bin/bash
+		 mkdir -p /tmp/20065334;
+                 puppet resource file /tmp/20065334/clone ensure=absent force=true;
+                 puppet resource file /tmp/20065334/clone ensure=directory;
+                 cd /tmp/20065334/clone;
+                 git clone https://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@github.com/daemianKoh/20065334_repo.git;
+                 targets=20065334-websvr.localdomain;
+                 locate_script='/tmp/20065334/clone/20065334_repo/20065334_script';
+                 bolt script run $locate_script -t $targets -u clientadm -p user123 --no-host-key-check --run-as root;
+                 '''
+  
   
                 echo "20065334STG2 - Push to production web server completed"
           }	  
