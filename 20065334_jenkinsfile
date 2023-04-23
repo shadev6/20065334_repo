@@ -1,0 +1,52 @@
+pipeline {
+      agent any
+      stages {
+          stage('20065334STG1') {
+          steps {
+            input('20065334STG1:Push change to production web server?')
+          }
+          }
+         stage('20065334STG2') {
+          when {
+                not {
+                    branch "Not push to production web server"
+                }
+          }
+          steps {
+  
+                echo "20065334STG2 - Push to production web server completed"
+          }	  
+          }
+          stage('20065334STG3') {
+          steps {
+            input('20065334STG3:Proceed to test production web service?')
+          }
+          }	
+         stage('20065334STG4') {
+          when {
+                not {
+                    branch "testing not completed"
+                }
+          }
+          steps {
+	     //	sh "curl -Is http://20065334-websvr.localdomain | head -n 1 | tr -d '\\r\\n' | awk '{print \$2}' > /tmp/web-test-result"
+                echo "STG4: Production web server testing completed"
+          }	 
+          }
+          stage('20065334STG5') {
+          steps {
+            input('20065334STG5:Web server testing result has been inspected')
+          }
+          }
+         stage('20065334STG6') {
+          when {
+                not {
+                    branch "production operation is not successful"
+                }
+          }
+          steps {
+                echo "20065334STG6: Production Operation is successful."
+          }	 
+          }		  
+      }
+}
