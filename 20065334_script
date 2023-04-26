@@ -1,7 +1,7 @@
 #!/bin/bash
 apt-get update
 puppet resource package git ensure=present
-mkdir -p /tmp/20065334;
+mkdir -p /tmp/20065334
 puppet resource package apache2 ensure=present
 puppet resource service apache2 ensure=running
 puppet resource file /tmp/20065334/clone ensure=absent force=true
